@@ -1,0 +1,27 @@
+extends layout.pug
+
+block block
+  if error
+    p.error Input is empty!
+
+  if success
+    p.success Task is added
+
+  if deleted
+    p.error Task is deleted
+
+  form.form(action='/add' method='POST')
+    input.input(type='text' placeholder='Write something' name='todo')
+    button.btn Save  
+
+  div.todos
+    if todos.length
+      each todo in todos  
+        p.todo 
+          if todo.done
+            a.done(href=`/${ todo.id}/update`) #{ todo.description }
+          else 
+            a.undone(href=`/${ todo.id}/update`) #{ todo.description }
+          a.delete(href=`/${ todo.id }/delete`) Delete
+    else
+      p.todo No Tasks
